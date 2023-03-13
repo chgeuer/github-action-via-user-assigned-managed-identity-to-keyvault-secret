@@ -14,13 +14,13 @@ jobs:
       with:
         environment: azurecloud
         allow-no-subscriptions: true
-        tenant-id: ${{env.AZURE_TENANT_ID}}
-        client-id: ${{env.AZURE_UAMI_CLIENT_ID}}
+        tenant-id: ${{vars.AZURE_TENANT_ID}}
+        client-id: ${{vars.AZURE_UAMI_CLIENT_ID}}
         audience: api://AzureADTokenExchange
     - id: getSecretFromKeyVault
       uses: Azure/get-keyvault-secrets@v1
       with: 
-        keyvault: ${{env.AZURE_KEYVAULT_NAME}}
+        keyvault: ${{vars.AZURE_KEYVAULT_NAME}}
         secrets: 'demosecret'
     - name: Echo the secret
       run: |
