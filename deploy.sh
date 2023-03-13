@@ -24,7 +24,7 @@ az deployment group create \
     keyvaultName="${keyvaultName}" \
     uamiName="${uamiName}" \
     secretName="${secretName}" \
-    secretValue="${secretValue}" \
+    secretValue="${secretValue}"
 
 identityValues="$( az identity show \
     --resource-group "${resourceGroupName}" \
