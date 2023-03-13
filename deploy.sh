@@ -1,14 +1,14 @@
-#!/bin/basha
+#!/bin/bash
 
 location="westeurope"
-resourceGroupName="demo2"
+resourceGroupName="demo-github-action-uami-keyvault"
 uamiName="github-uami"
-keyvaultName="kvchgp123"
+keyvaultName="chgpgithubuami"
 secretName="demosecret"
 secretValue="Greetings from Bicep"
 
-githubOrgOrUser="Microsoft-Bootcamp"
-githubRepo="attendee-chgeuer"
+githubOrgOrUser="chgeuer"
+githubRepo="github-action-via-user-assigned-managed-identity-to-keyvault-secret"
 githubBranch="main"
 
 az group create --location "${location}" --name "${resourceGroupName}"
