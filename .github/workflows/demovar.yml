@@ -1,4 +1,4 @@
-name: demosecret
+name: demo using variables
 
 on: [workflow_dispatch]
 
