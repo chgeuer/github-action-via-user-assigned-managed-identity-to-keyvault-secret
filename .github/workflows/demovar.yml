@@ -26,7 +26,8 @@ jobs:
       run: |
         echo "My Secret: ${{ steps.getSecretFromKeyVault.outputs.demosecret }}" | base64
     - name: Azure CLI Script
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
+        scriptType: 'bash'
         inlineScript: |
-          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name 'demosecret'
+          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name 'demosecret' | jq -r '.value'
