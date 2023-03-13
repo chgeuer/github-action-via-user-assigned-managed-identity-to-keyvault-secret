@@ -25,6 +25,8 @@ jobs:
     - name: Echo the secret
       run: |
         echo "My Secret: ${{ steps.getSecretFromKeyVault.outputs.demosecret }}" | base64
-    - uses: azure/CLI@v1
-      inlineScript: |
-        az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name 'demosecret'
+    - name: Azure CLI Script
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name 'demosecret'
