@@ -14,6 +14,7 @@ sequenceDiagram
     Azure/Login@v1->>GitHub IdP: Token Request, Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}"
     GitHub IdP->>Azure/Login@v1: Token (iss: GitHub, sub: repo:chgeuer/repo123:ref:refs/heads/main, aud: api://AzureADTokenExchange)
     Azure/Login@v1->>AAD: Token Request (client_id: uami, client_assertion_type=...jwt-bearer, client_assertion=github token, scope: KeyVault)
+    AAD->>GitHub IdP->>Fetch the IdP signing key, to validate the token signature
     AAD->>Azure/Login@v1: Token (sub: uami, aud: KeyVault)
     Azure/Login@v1->>GitHub Action: SignedIn:
     GitHub Action->>Azure/GetKeyVaultSecrets@v1: Get Secret
