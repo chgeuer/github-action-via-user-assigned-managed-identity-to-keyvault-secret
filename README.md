@@ -187,13 +187,11 @@ Inside the Key Vault's secret section, you should find the secret (assuming you 
 
 ![Key Vault Secret](img/keyvault-secret-details.png)
 
-You now should set the variables in your GitHub environment. You can either run the `gh secret` command to set the configuration as secrets. Strictly speaking, these 'secrets' aren't really secret, as they don't refer to passwords, client secrets or API tokens. 
-
-So you can also set them as repository variables. 
+You now should set the variables in your GitHub environment. You can set them as repository variables. 
 
 ![image-20230706105511621](img/github-env-vars-overview.png)
 
-## The `.github/workflows/demosecret.yml` file
+## The `.github/workflows/demovar.yml` file
 
 As a last step, you must access the Key Vault secret in your GitHub action:
 
@@ -201,7 +199,7 @@ As a last step, you must access the Key Vault secret in your GitHub action:
 - Using the `Azure/get-keyvault-secrets@v1` action, you can pull the secret out of Key Vault.
 
 ```yaml
-name: Grab a secret from Azure KeyVault, using Federated Identity, against a User-Assigned Managed Identity
+name: demo using variables
 
 on: [workflow_dispatch]
 
@@ -217,17 +215,21 @@ jobs:
       with:
         environment: azurecloud
         allow-no-subscriptions: true
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        client-id: ${{ secrets.AZURE_UAMI_CLIENT_ID }}
+        tenant-id: ${{vars.AZURE_TENANT_ID}}
+        client-id: ${{vars.AZURE_UAMI_CLIENT_ID}}
         audience: api://AzureADTokenExchange
     - id: getSecretFromKeyVault
       uses: Azure/get-keyvault-secrets@v1
       with: 
-        keyvault: ${{ secrets.AZURE_KEYVAULT_NAME }}
+        keyvault: ${{vars.AZURE_KEYVAULT_NAME}}
         secrets: 'demosecret'
     - name: Echo the secret
       run: |
         echo "My Secret: ${{ steps.getSecretFromKeyVault.outputs.demosecret }}" | base64
-
+    - name: Azure CLI Script
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name ${{vars.AZURE_KEYVAULT_SECRET_NAME}} | jq -r '.value'
 ```
 
