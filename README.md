@@ -166,8 +166,9 @@ AZURE_KEYVAULT_NAME=${keyvaultName}
 AZURE_KEYVAULT_SECRET_NAME=${secretName}
 EOF
 
-gh secret set --repo "${githubOrgOrUser}/${githubRepo}" --env-file env.txt
+# gh secret set --repo "${githubOrgOrUser}/${githubRepo}" --env-file env.txt
 
+echo "Please set the variables from the file env.txt in your github settings"
 ```
 
 After deploying the Bicep file to Azure, the user-assigned managed identity should have the github credential in the "Federated Credentials" section:
@@ -186,11 +187,11 @@ Inside the Key Vault's secret section, you should find the secret (assuming you 
 
 ![Key Vault Secret](img/keyvault-secret-details.png)
 
-After running the `gh secret` command, the repo should contain under "Settings / Security / Secrets and variables / Actions / Repository Secrets" the given secrets:
+You now should set the variables in your GitHub environment. You can either run the `gh secret` command to set the configuration as secrets. Strictly speaking, these 'secrets' aren't really secret, as they don't refer to passwords, client secrets or API tokens. 
 
-![GitHub Secrets](img/github-secrets-overview.png)
+So you can also set them as repository variables. 
 
-Strictly speaking, these 'secrets' aren't really secret, as they don't refer to passwords, client secrets or API tokens. 
+![image-20230706105511621](img/github-env-vars-overview.png)
 
 ## The `.github/workflows/demosecret.yml` file
 

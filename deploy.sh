@@ -1,9 +1,9 @@
 #!/bin/bash
 
-location="westeurope"
-resourceGroupName="demo-github-action-uami-keyvault"
+location="northeurope"
+resourceGroupName="githubdemos"
 uamiName="github-uami"
-keyvaultName="chgpgithubuami"
+keyvaultName="chgeuergithub2"
 secretName="demosecret"
 secretValue="Greetings from Bicep"
 
@@ -40,4 +40,4 @@ AZURE_KEYVAULT_NAME=${keyvaultName}
 AZURE_KEYVAULT_SECRET_NAME=${secretName}
 EOF
 
-gh secret set --repo "${githubOrgOrUser}/${githubRepo}" --env-file env.txt
+# gh secret set --repo "${githubOrgOrUser}/${githubRepo}" --env-file env.txt

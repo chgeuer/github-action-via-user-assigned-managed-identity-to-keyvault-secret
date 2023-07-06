@@ -29,4 +29,4 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name 'demosecret' | jq -r '.value'
+          az keyvault secret show --vault-name ${{vars.AZURE_KEYVAULT_NAME}} --name ${{vars.AZURE_KEYVAULT_SECRET_NAME}} | jq -r '.value'

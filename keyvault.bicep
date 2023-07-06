@@ -43,7 +43,7 @@ resource uami 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
       issuer: github.issuer
       audiences: [ github.audience ]
       subject: github.subject
-      description: 'The GitHub repo will sign in via a federated credential'
+      // description: 'The GitHub repo will sign in via a federated credential'
     }
   }
 }
